@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Download,
   Info,
@@ -32,309 +32,6 @@ type Deal = {
   priority: "HIGH" | "MEDIUM" | "LOW";
   action: string;
 };
-
-const deals: Deal[] = [
-  {
-    id: "CRM-001",
-    date: "2026-01-08",
-    location: "Bengaluru",
-    team: "Enterprise",
-    product: "Analytics Suite",
-    company: "Aster Systems",
-    segment: "Enterprise",
-    reason: "Price",
-    competitor: "Salesforce",
-    stage: "Negotiation",
-    value: 850000,
-    priority: "HIGH",
-    action: "Re-engage with ROI comparison and flexible pricing.",
-  },
-  {
-    id: "CRM-002",
-    date: "2026-01-14",
-    location: "Mumbai",
-    team: "Enterprise",
-    product: "Cloud Platform",
-    company: "Nova Retail",
-    segment: "Enterprise",
-    reason: "Competitor",
-    competitor: "Microsoft",
-    stage: "Proposal",
-    value: 720000,
-    priority: "HIGH",
-    action: "Review competitor feature gap and schedule executive follow-up.",
-  },
-  {
-    id: "CRM-003",
-    date: "2026-01-22",
-    location: "Kochi",
-    team: "SMB",
-    product: "Analytics Suite",
-    company: "Bluewave Foods",
-    segment: "SMB",
-    reason: "Product Fit",
-    competitor: "Zoho",
-    stage: "Evaluation",
-    value: 280000,
-    priority: "MEDIUM",
-    action: "Offer a product-fit workshop and targeted demo.",
-  },
-  {
-    id: "CRM-004",
-    date: "2026-02-03",
-    location: "Chennai",
-    team: "Mid-Market",
-    product: "CRM Platform",
-    company: "Orbit Logistics",
-    segment: "Mid-Market",
-    reason: "Timing",
-    competitor: "HubSpot",
-    stage: "Proposal",
-    value: 460000,
-    priority: "MEDIUM",
-    action: "Create a 60-day re-engagement reminder.",
-  },
-  {
-    id: "CRM-005",
-    date: "2026-02-11",
-    location: "Hyderabad",
-    team: "Enterprise",
-    product: "Cloud Platform",
-    company: "Vertex Health",
-    segment: "Enterprise",
-    reason: "Price",
-    competitor: "AWS",
-    stage: "Negotiation",
-    value: 1100000,
-    priority: "HIGH",
-    action: "Escalate for commercial review and ROI justification.",
-  },
-  {
-    id: "CRM-006",
-    date: "2026-02-18",
-    location: "Pune",
-    team: "SMB",
-    product: "CRM Platform",
-    company: "Bright Retail",
-    segment: "SMB",
-    reason: "Budget",
-    competitor: "Zoho",
-    stage: "Qualification",
-    value: 190000,
-    priority: "LOW",
-    action: "Revisit during next budget cycle.",
-  },
-  {
-    id: "CRM-007",
-    date: "2026-02-26",
-    location: "Delhi",
-    team: "Mid-Market",
-    product: "Analytics Suite",
-    company: "Northstar Finance",
-    segment: "Mid-Market",
-    reason: "Competitor",
-    competitor: "Power BI",
-    stage: "Negotiation",
-    value: 640000,
-    priority: "HIGH",
-    action: "Compare analytics capabilities and migration benefits.",
-  },
-  {
-    id: "CRM-008",
-    date: "2026-03-04",
-    location: "Kochi",
-    team: "SMB",
-    product: "Cloud Platform",
-    company: "Harbor Tech",
-    segment: "SMB",
-    reason: "Product Fit",
-    competitor: "AWS",
-    stage: "Evaluation",
-    value: 230000,
-    priority: "MEDIUM",
-    action: "Run a technical discovery session.",
-  },
-  {
-    id: "CRM-009",
-    date: "2026-03-12",
-    location: "Bengaluru",
-    team: "Enterprise",
-    product: "CRM Platform",
-    company: "Zenith Motors",
-    segment: "Enterprise",
-    reason: "Competitor",
-    competitor: "Salesforce",
-    stage: "Proposal",
-    value: 920000,
-    priority: "HIGH",
-    action: "Build competitor battlecard and executive outreach.",
-  },
-  {
-    id: "CRM-010",
-    date: "2026-03-18",
-    location: "Mumbai",
-    team: "Mid-Market",
-    product: "Analytics Suite",
-    company: "Urban Living",
-    segment: "Mid-Market",
-    reason: "Timing",
-    competitor: "Tableau",
-    stage: "Evaluation",
-    value: 370000,
-    priority: "MEDIUM",
-    action: "Schedule future re-engagement based on buying cycle.",
-  },
-  {
-    id: "CRM-011",
-    date: "2026-03-25",
-    location: "Chennai",
-    team: "SMB",
-    product: "CRM Platform",
-    company: "Green Basket",
-    segment: "SMB",
-    reason: "Budget",
-    competitor: "Zoho",
-    stage: "Qualification",
-    value: 150000,
-    priority: "LOW",
-    action: "Send lower-tier package when budget becomes available.",
-  },
-  {
-    id: "CRM-012",
-    date: "2026-04-02",
-    location: "Hyderabad",
-    team: "Enterprise",
-    product: "Cloud Platform",
-    company: "Prime Energy",
-    segment: "Enterprise",
-    reason: "Price",
-    competitor: "Azure",
-    stage: "Negotiation",
-    value: 1250000,
-    priority: "HIGH",
-    action: "Conduct executive pricing review and ROI analysis.",
-  },
-  {
-    id: "CRM-013",
-    date: "2026-04-10",
-    location: "Pune",
-    team: "Mid-Market",
-    product: "CRM Platform",
-    company: "Axis Manufacturing",
-    segment: "Mid-Market",
-    reason: "Product Fit",
-    competitor: "HubSpot",
-    stage: "Evaluation",
-    value: 410000,
-    priority: "MEDIUM",
-    action: "Map missing requirements and propose configuration.",
-  },
-  {
-    id: "CRM-014",
-    date: "2026-04-18",
-    location: "Delhi",
-    team: "Enterprise",
-    product: "Analytics Suite",
-    company: "Summit Bank",
-    segment: "Enterprise",
-    reason: "Competitor",
-    competitor: "Tableau",
-    stage: "Negotiation",
-    value: 980000,
-    priority: "HIGH",
-    action: "Present differentiated analytics capabilities.",
-  },
-  {
-    id: "CRM-015",
-    date: "2026-04-25",
-    location: "Kochi",
-    team: "SMB",
-    product: "Cloud Platform",
-    company: "Coastal Foods",
-    segment: "SMB",
-    reason: "Timing",
-    competitor: "AWS",
-    stage: "Proposal",
-    value: 210000,
-    priority: "LOW",
-    action: "Place into quarterly recovery campaign.",
-  },
-  {
-    id: "CRM-016",
-    date: "2026-05-03",
-    location: "Bengaluru",
-    team: "Mid-Market",
-    product: "CRM Platform",
-    company: "Techline India",
-    segment: "Mid-Market",
-    reason: "Price",
-    competitor: "Salesforce",
-    stage: "Proposal",
-    value: 570000,
-    priority: "HIGH",
-    action: "Reopen pricing discussion with value-based package.",
-  },
-  {
-    id: "CRM-017",
-    date: "2026-05-11",
-    location: "Mumbai",
-    team: "Enterprise",
-    product: "Cloud Platform",
-    company: "Metro Infra",
-    segment: "Enterprise",
-    reason: "Budget",
-    competitor: "Azure",
-    stage: "Qualification",
-    value: 690000,
-    priority: "MEDIUM",
-    action: "Monitor budget approval and prepare re-entry plan.",
-  },
-  {
-    id: "CRM-018",
-    date: "2026-05-19",
-    location: "Chennai",
-    team: "SMB",
-    product: "Analytics Suite",
-    company: "FreshMart",
-    segment: "SMB",
-    reason: "Competitor",
-    competitor: "Power BI",
-    stage: "Evaluation",
-    value: 175000,
-    priority: "LOW",
-    action: "Share product comparison and customer proof points.",
-  },
-  {
-    id: "CRM-019",
-    date: "2026-05-27",
-    location: "Hyderabad",
-    team: "Mid-Market",
-    product: "CRM Platform",
-    company: "Medix Labs",
-    segment: "Mid-Market",
-    reason: "Product Fit",
-    competitor: "HubSpot",
-    stage: "Proposal",
-    value: 520000,
-    priority: "MEDIUM",
-    action: "Schedule solution-design workshop.",
-  },
-  {
-    id: "CRM-020",
-    date: "2026-06-05",
-    location: "Pune",
-    team: "Enterprise",
-    product: "Analytics Suite",
-    company: "Global Textiles",
-    segment: "Enterprise",
-    reason: "Price",
-    competitor: "Tableau",
-    stage: "Negotiation",
-    value: 890000,
-    priority: "HIGH",
-    action: "Create executive-level commercial recovery plan.",
-  },
-];
 
 const reasonOrder = [
   "Price",
@@ -372,6 +69,12 @@ function formatCurrency(value: number) {
 export default function Home() {
   const [showInfo, setShowInfo] = useState(false);
 
+  // FastAPI data
+  const [deals, setDeals] = useState<Deal[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [apiError, setApiError] = useState("");
+
+  // Filters
   const [locationFilter, setLocationFilter] =
     useState("ALL");
 
@@ -389,6 +92,41 @@ export default function Home() {
 
   const [priorityFilter, setPriorityFilter] =
     useState("ALL");
+
+  // Load CRM data from FastAPI
+  useEffect(() => {
+    const apiBaseUrl =
+      process.env.NEXT_PUBLIC_API_URL ??
+      "http://127.0.0.1:8000";
+
+    fetch(`${apiBaseUrl}/api/deals`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `API request failed: ${response.status}`
+          );
+        }
+
+        return response.json();
+      })
+      .then((data: Deal[]) => {
+        setDeals(data);
+        setApiError("");
+      })
+      .catch((error) => {
+        console.error(
+          "Failed to load deals:",
+          error
+        );
+
+        setApiError(
+          "Unable to load CRM data from the FastAPI backend."
+        );
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   const filteredDeals = useMemo(() => {
     return deals.filter((deal) => {
@@ -408,6 +146,7 @@ export default function Home() {
       );
     });
   }, [
+    deals,
     locationFilter,
     teamFilter,
     productFilter,
@@ -428,7 +167,9 @@ export default function Home() {
   ).length;
 
   const averageDealValue =
-    totalLost > 0 ? totalValue / totalLost : 0;
+    totalLost > 0
+      ? totalValue / totalLost
+      : 0;
 
   const lossReasons = reasonOrder
     .map((reason) => ({
@@ -444,18 +185,20 @@ export default function Home() {
     lossReasons[0]?.reason ?? "No data";
 
   const competitorCounts = competitorOrder
-  .map((competitor) => {
-    const losses = filteredDeals.filter(
-      (deal) => deal.competitor === competitor
-    ).length;
+    .map((competitor) => {
+      const losses = filteredDeals.filter(
+        (deal) =>
+          deal.competitor === competitor
+      ).length;
 
-    return {
-      competitor,
-      wins: 0,
-      losses,
-    };
-  })
-  .filter((item) => item.losses > 0);
+      return {
+        competitor,
+        wins: 0,
+        losses,
+      };
+    })
+    .filter((item) => item.losses > 0);
+
   const topCompetitor =
     competitorCounts.length > 0
       ? [...competitorCounts].sort(
@@ -561,7 +304,10 @@ export default function Home() {
       .map((row) =>
         row
           .map((value) =>
-            `"${String(value).replaceAll('"', '""')}"`
+            `"${String(value).replaceAll(
+              '"',
+              '""'
+            )}"`
           )
           .join(",")
       )
@@ -585,6 +331,21 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#030712] text-slate-100">
+
+      {/* API STATUS */}
+
+      {loading && (
+        <div className="border-b border-[#38BDF8]/20 bg-[#38BDF8]/5 px-5 py-3 text-center text-xs text-[#38BDF8]">
+          Loading CRM intelligence from FastAPI...
+        </div>
+      )}
+
+      {apiError && (
+        <div className="border-b border-red-400/20 bg-red-400/5 px-5 py-3 text-center text-xs text-red-300">
+          {apiError}
+        </div>
+      )}
+
       {/* HEADER */}
 
       <header className="sticky top-0 z-50 border-b border-[#1F2937] bg-[#030712]/90 backdrop-blur-xl">
@@ -614,6 +375,7 @@ export default function Home() {
       </header>
 
       <div className="mx-auto max-w-[1600px] px-5 py-6 lg:px-8">
+
         {/* SOURCE NOTE */}
 
         <div className="mb-5 flex items-start gap-3 rounded-xl border border-[#38BDF8]/15 bg-[#38BDF8]/5 p-4">
@@ -625,7 +387,8 @@ export default function Home() {
             </div>
 
             <p className="mt-1 text-xs leading-5 text-slate-400">
-              Synthetic CRM loss and follow-up dataset for
+              Synthetic CRM loss and follow-up dataset
+              served through the FastAPI backend for
               demonstration and decision-support purposes.
               Company names and records shown here are
               synthetic and must not be interpreted as real
@@ -646,6 +409,7 @@ export default function Home() {
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+
             {[
               {
                 label: "LOCATION",
@@ -741,12 +505,14 @@ export default function Home() {
                 </select>
               </label>
             ))}
+
           </div>
         </section>
 
         {/* KPI GRID */}
 
         <section className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+
           <div className="rounded-2xl border border-[#1F2937] bg-[#0B1117] p-5">
             <div className="flex items-center gap-2 text-[9px] tracking-widest text-slate-500">
               <TrendingDown className="h-4 w-4 text-[#38BDF8]" />
@@ -799,13 +565,16 @@ export default function Home() {
             </div>
 
             <div className="mt-3 text-2xl font-bold">
-              {formatCurrency(averageDealValue)}
+              {formatCurrency(
+                averageDealValue
+              )}
             </div>
 
             <div className="mt-1 text-[10px] text-slate-500">
               Average lost opportunity value
             </div>
           </div>
+
         </section>
 
         {/* CHARTS */}
@@ -839,6 +608,7 @@ export default function Home() {
         {/* DOWNLOADS + DATA QUALITY */}
 
         <section className="grid gap-5 lg:grid-cols-2">
+
           <div className="rounded-2xl border border-[#1F2937] bg-[#0B1117] p-5">
             <div className="text-[10px] font-semibold tracking-[0.25em] text-[#38BDF8]">
               EXPORT DATA
@@ -850,6 +620,7 @@ export default function Home() {
             </p>
 
             <div className="mt-4 flex flex-wrap gap-3">
+
               <button
                 onClick={downloadCSV}
                 className="flex items-center gap-2 rounded-lg border border-[#38BDF8]/30 bg-[#38BDF8]/10 px-4 py-3 text-[10px] font-semibold tracking-widest text-[#38BDF8] transition hover:bg-[#38BDF8]/20"
@@ -865,15 +636,18 @@ export default function Home() {
                 <Download className="h-4 w-4" />
                 DOWNLOAD JSON
               </button>
+
             </div>
           </div>
 
           <div className="rounded-2xl border border-[#1F2937] bg-[#0B1117] p-5">
+
             <div className="text-[10px] font-semibold tracking-[0.25em] text-[#38BDF8]">
               SOURCE QUALITY & KPI DEFINITIONS
             </div>
 
             <div className="mt-4 space-y-3 text-xs leading-5 text-slate-400">
+
               <p>
                 <strong className="text-slate-200">
                   Lost Deals:
@@ -907,14 +681,17 @@ export default function Home() {
                 treated as verified Companies House or GLEIF
                 records.
               </p>
+
             </div>
           </div>
+
         </section>
 
         {/* FOOTER */}
 
         <footer className="mt-8 border-t border-[#1F2937] py-6">
           <div className="flex flex-col justify-between gap-3 text-[9px] tracking-widest text-slate-600 sm:flex-row">
+
             <span>
               REAL RAILS BUSINESS INTELLIGENCE LIBRARY
             </span>
@@ -922,8 +699,10 @@ export default function Home() {
             <span>
               POC-12 • LEADS & CONVERSION
             </span>
+
           </div>
         </footer>
+
       </div>
 
       {/* INFO MODAL */}
@@ -933,14 +712,18 @@ export default function Home() {
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
           onClick={() => setShowInfo(false)}
         >
+
           <div
             className="w-full max-w-md rounded-2xl border border-[#38BDF8]/25 bg-[#070D14] p-6 shadow-2xl"
             onClick={(event) =>
               event.stopPropagation()
             }
           >
+
             <div className="flex items-start justify-between">
+
               <div>
+
                 <div className="text-[9px] tracking-[0.3em] text-[#38BDF8]">
                   APPLICATION INFORMATION
                 </div>
@@ -948,6 +731,7 @@ export default function Home() {
                 <h2 className="mt-2 text-xl font-bold">
                   Lost Deal Reason & Recovery Intelligence
                 </h2>
+
               </div>
 
               <button
@@ -957,6 +741,7 @@ export default function Home() {
               >
                 <X className="h-5 w-5" />
               </button>
+
             </div>
 
             <p className="mt-5 text-sm leading-6 text-slate-400">
@@ -967,6 +752,7 @@ export default function Home() {
             </p>
 
             <div className="mt-5 rounded-xl border border-[#1F2937] bg-[#030712] p-4">
+
               <div className="text-[9px] tracking-widest text-slate-500">
                 DEVELOPER SIGNATURE
               </div>
@@ -976,12 +762,12 @@ export default function Home() {
               </div>
 
               <div className="mt-2 text-xs text-slate-400">
-                Batch: Batch 2 Interns
+                Batch: Batch 8 / MA College
               </div>
 
               <div className="mt-2 text-xs leading-5 text-slate-400">
                 Stack: Next.js, FastAPI, Tailwind CSS,
-Apache ECharts
+                Apache ECharts
               </div>
 
               <div className="mt-2 text-xs text-slate-400">
@@ -995,6 +781,7 @@ Apache ECharts
               <div className="mt-3 text-[9px] tracking-widest text-[#38BDF8]">
                 INFOCREON INTERNSHIP
               </div>
+
             </div>
 
             <button
@@ -1003,9 +790,12 @@ Apache ECharts
             >
               CLOSE
             </button>
+
           </div>
+
         </div>
       )}
+
     </main>
   );
 }
