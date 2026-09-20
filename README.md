@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PoC 12 — Lost Deal Reason & Recovery Intelligence
 
-## Getting Started
+A decision-support dashboard for analysing lost CRM deals, identifying recurring loss reasons and competitive signals, and surfacing recovery-oriented actions.
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This PoC transforms lost-deal records into an interactive intelligence dashboard.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Users can:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Analyse lost deals by location, team, product, segment, loss reason, and priority
+- Monitor key recovery and loss indicators
+- Explore loss reasons using analytical charts
+- Analyse customer-segment patterns
+- Review competitive loss signals
+- Open an Intelligence Panel for contextual interpretation
+- Review deal-level recovery information
+- Export dashboard data as CSV and JSON
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+> **Data note:** This PoC uses a synthetic CRM loss/follow-up dataset for demonstration and decision-support purposes. Company names and records are synthetic.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Key Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Dashboard Intelligence
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- KPI summary
+- Interactive filtering
+- Loss-reason analysis
+- Segment analysis
+- Competitive analysis
+- Intelligence Panel
+- Recovery recommendations
+- Deal-level recovery table
 
-## Deploy on Vercel
+### User Interactions
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Filter combinations
+- Interactive chart tooltips
+- Chart selection
+- Intelligence Panel
+- Information interface
+- CSV export
+- JSON export
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Responsive Design
+
+The dashboard was tested across:
+
+- Desktop
+- Tablet
+- Mobile
+
+---
+
+## Technology Stack
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Apache ECharts
+- ECharts React integration
+
+---
+
+## Project Structure
+
+```text
+poc-12-lost-deal-recovery/
+│
+├── app/
+│   ├── components/
+│   │   ├── DashboardCharts.tsx
+│   │   ├── DecisionPanel.tsx
+│   │   ├── IntelligencePanel.tsx
+│   │   └── RecoveryTable.tsx
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+│
+├── public/
+│
+├── VAR_REPORT.md
+├── UAT_CHECKLIST.md
+├── README.md
+├── package.json
+├── package-lock.json
+└── ...
