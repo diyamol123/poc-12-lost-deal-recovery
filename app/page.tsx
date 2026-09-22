@@ -95,10 +95,7 @@ export default function Home() {
 
   // Load CRM data from FastAPI
   useEffect(() => {
-    const apiBaseUrl =
-  process.env.NEXT_PUBLIC_API_URL || "";
-
-    fetch(`${apiBaseUrl}/api/deals`)
+    fetch("/api/deals")
       .then((response) => {
         if (!response.ok) {
           throw new Error(
